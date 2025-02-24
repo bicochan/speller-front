@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const DEFAULT_TIMEOUT = 10000
+const DEFAULT_TIMEOUT = 30000
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,

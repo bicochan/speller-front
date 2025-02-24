@@ -31,12 +31,12 @@ const Navigator = () => {
 
   useEffect(() => {
     ;(async () => {
-      if (!!responseMap?.[currentPage + 1]) return
-      if (!responseMap?.[currentPage]?.remaningText) return
-
       if (!responseMap?.[currentPage]) {
         updateResponseMap({ ...response, pageIdx: currentPage })
       }
+
+      if (!!responseMap?.[currentPage + 1]) return
+      if (!responseMap?.[currentPage]?.remaningText) return
 
       const nextPageResponse = await clientSpellCheck({
         text: responseMap[currentPage].remaningText,
