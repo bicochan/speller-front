@@ -1,7 +1,11 @@
 'use client'
 
 import { Fragment, useCallback, useState } from 'react'
-import { useSpeller, CorrectMethodEnum } from '@/entities/speller'
+import {
+  useSpeller,
+  CorrectMethodEnum,
+  useSpellerRefs,
+} from '@/entities/speller'
 import { cn } from '@/shared/lib/tailwind-merge'
 import { BulletBadge } from '@/shared/ui/bullet-badge'
 import { ScrollContainer } from '@/shared/ui/scroll-container'
@@ -9,6 +13,7 @@ import { ScrollGradientFade } from '@/shared/ui/scroll-gradient-fade'
 import { ErrorInfoSection } from './error-info-section'
 
 const ErrorTrackingSection = () => {
+  const { errorRefs } = useSpellerRefs()
   const { response } = useSpeller()
   const { errInfo } = response ?? {}
 
@@ -29,10 +34,10 @@ const ErrorTrackingSection = () => {
         className='-mt-[1.125rem]'
       >
         <div>
-          {errInfo.map((info, i) => (
+          {errInfo.map((info, idx) => (
             <Fragment key={info.errorIdx}>
-              <hr className={cn('border-slate-200', i === 0 && 'hidden')} />
-              <ErrorInfoSection errorInfo={info} />
+              <hr className={cn('border-slate-200', idx === 0 && 'hidden')} />
+              <ErrorInfoSection errorInfo={info} ref={errorRefs?.[idx]} />
             </Fragment>
           ))}
         </div>

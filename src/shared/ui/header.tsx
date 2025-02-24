@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from './button'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
@@ -8,7 +9,14 @@ const Header = () => {
       <header className='flex flex-1 items-center justify-between px-6 py-4 pc:container tab:px-[3.75rem] tab:py-5 pc:p-[2rem_3.75rem]'>
         <div className='flex items-center gap-5'>
           <h1 className='text-xl font-bold tab:text-2xl'>
-            한국어 맞춤법 검사기
+            <div className='relative h-[1.375rem] w-[11.625rem] tab:h-[1.75rem] tab:w-[14.75rem] pc:h-[2rem] pc:w-[17rem]'>
+              <Image
+                src='/logo.svg'
+                alt='한국어 맞춤법 검사기'
+                aria-label='한국어 맞춤법 검사기'
+                fill
+              />
+            </div>
           </h1>
           <Link href='/' className={`hidden tab:text-xl ${classes.linkButton}`}>
             이전 버전 사용하기

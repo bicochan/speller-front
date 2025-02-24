@@ -46,7 +46,7 @@ const SpellingCorrectionText = () => {
           'relative inline-block pt-6 transition-all duration-300',
           isResolved && 'pt-0',
         )}
-        ref={correctRefs[idx]}
+        ref={correctRefs?.[idx]}
         onMouseOver={() => scrollSection('error')(idx)}
       >
         <button
