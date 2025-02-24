@@ -26,7 +26,7 @@ const ErrorTrackingSection = () => {
       </h2>
       <ScrollContainer
         onScrollStatusChange={handleScroll}
-        className='-mt-[1.125rem]'
+        className='-mt-[1.125rem] flex-1'
       >
         <div>
           {errInfo.map((info, i) => (
