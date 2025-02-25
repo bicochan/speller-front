@@ -1,7 +1,12 @@
+import Image from 'next/image'
+
 import { ContentLayout } from './content-layout'
 import { SubmittedSuccessMessage } from './submitted-success-message'
 import { SubmittedContent } from './submitted-content'
 import { SubmittedControl } from './submitted-control'
+import submittedMobileImage from '../../../../public/submitted_mobile.png'
+import submittedTabImage from '../../../../public/submitted_tab.png'
+import submittedWebImage from '../../../../public/submitted_web.png'
 
 const SubmittedPage = async ({
   searchParams,
@@ -11,10 +16,27 @@ const SubmittedPage = async ({
   const { content } = await searchParams
 
   return (
-    <ContentLayout className='gap-5 pt-[2.125rem] tab:pt-[3.75rem] pc:grid-cols-[1fr_auto] pc:gap-x-9 pc:gap-y-0 pc:pt-[6.125rem]'>
+    <ContentLayout className='px-0 tab:px-0 pc:grid-cols-[1fr_35.8rem]'>
       {/* 제출 완료 이미지 */}
-      <div className='h-[180px] rounded-sm bg-slate-400' />
-      <div className='space-y-7 tab:space-y-8 pc:max-w-[36.25rem] pc:space-y-0'>
+      <Image
+        src={submittedMobileImage}
+        alt='submitted_mobile'
+        sizes='100vw'
+        className='h-auto w-full bg-background tab:hidden pc:hidden'
+      />
+      <Image
+        src={submittedTabImage}
+        alt='submitted_tab'
+        sizes='100vw'
+        className='hidden h-auto w-full bg-background tab:block pc:hidden'
+      />
+      <Image
+        src={submittedWebImage}
+        alt='submitted_tab'
+        sizes='100vw'
+        className='hidden h-auto w-full bg-background pc:block'
+      />
+      <div className='-mt-28 space-y-7 px-4 tab:-mt-28 tab:space-y-8 tab:px-[3.75rem] pc:-mt-0 pc:max-w-[36.25rem] pc:space-y-0 pc:px-0 pc:pl-[2.25rem] pc:pt-[6.125rem]'>
         {/* 의견 제출 성공 메시지 */}
         <SubmittedSuccessMessage />
         {/* 발송된 문의 내용   */}
@@ -25,5 +47,4 @@ const SubmittedPage = async ({
     </ContentLayout>
   )
 }
-
 export { SubmittedPage }
