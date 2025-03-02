@@ -14,11 +14,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to Server
+      - name: Add server to known hosts
         run: |
-          ssh -o StrictHostKeyChecking=no -p 10122 nara@110.15.18.54 "bash /home/nara/speller-front/deploy.sh"
+          mkdir -p ~/.ssh
+          ssh-keyscan -p 10122 -H 110.15.18.54 >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        id: deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 10122 nara@110.15.18.54 "bash /home/nara/speller-front/deploy.sh" || echo "::set-output name=status::failed"
+
+      - name: Check deployment status
+        if: steps.deploy.outputs.status == 'failed'
+        run: |
+          echo "Deployment failed!"
+          exit 1
