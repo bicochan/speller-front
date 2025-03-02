@@ -38,7 +38,7 @@ const spellCheckAction = async (
     }
   } catch (error) {
     let errorMessage: string =
-      '[Error] spellCheckAction: 함수를 실행하던 동안 에러가 발생했습니다.'
+      '[Error] spellCheckAction: 함수를 실행하는 동안 에러가 발생했습니다.'
 
     if (axios.isAxiosError(error)) {
       errorMessage = error.message

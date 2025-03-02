@@ -24,6 +24,14 @@ const SpellerPage = () => {
     if (state.data) {
       setIsRedirectingToResult(true)
       handleReceiveResponse(state.data)
+
+      if (state.data.errInfo.length === 0) {
+        router.push(
+          `/no-errors?isStrictCheck=${state.data.requestedWithStrictMode}`,
+        )
+        return
+      }
+
       router.push('/results')
     }
 
