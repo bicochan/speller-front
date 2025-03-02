@@ -11,6 +11,7 @@ import {
 } from '@/shared/ui/toast'
 import WarningIcon from '@/shared/ui/icon/toast-warning.svg'
 import CheckIcon from '@/shared/ui/icon/toast-check.svg'
+import React from 'react'
 
 export function Toaster() {
   const { toasts } = useToast()
@@ -24,18 +25,18 @@ export function Toaster() {
               {title && <ToastTitle>{title}</ToastTitle>}
               {description && (
                 <ToastDescription>
-                  <div key={id} className='flex items-center gap-[1.03rem]'>
+                  <div className='flex items-center gap-[1.03rem]'>
                     {props.variant === 'destructive' ? (
                       <WarningIcon />
                     ) : (
                       <CheckIcon />
                     )}
                     {typeof description === 'string'
-                      ? description.split('\n').map(text => (
-                          <>
+                      ? description.split('\n').map((text, index) => (
+                          <React.Fragment key={index}>
                             {text}
                             <br />
-                          </>
+                          </React.Fragment>
                         ))
                       : description}
                   </div>

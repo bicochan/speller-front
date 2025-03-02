@@ -2,7 +2,11 @@ import { AxiosResponse } from 'axios'
 
 import { Client } from '@/shared/api/client'
 import { ENDPOINT } from '@/shared/model/constants'
-import { SpellerService, UserReplacePayload } from '../model/speller-interface'
+import {
+  NotChangePayload,
+  SpellerService,
+  UserReplacePayload,
+} from '../model/speller-interface'
 import {
   CheckPayload,
   CheckResponse,
@@ -28,8 +32,8 @@ class SpellerApiService implements SpellerService {
     return this.#client.post(ENDPOINT.CLICK_REPLACE, payload)
   }
 
-  async notChange() {
-    return this.#client.post(ENDPOINT.NOT_CHANGE) // FIXME: payload 추가
+  async notChange(payload: NotChangePayload) {
+    return this.#client.post(ENDPOINT.NOT_CHANGE, payload)
   }
 }
 

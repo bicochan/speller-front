@@ -9,10 +9,13 @@ import { TextCounter } from '@/shared/ui/text-counter'
 import { useSpeller } from '@/entities/speller'
 import { useRouter } from 'next/navigation'
 import { toast } from '@/shared/lib/use-toast'
+import { logCopyAction } from '../api/log-copy-action'
+import { getWordsAroundIndex } from '@/shared/lib/util'
 
 const ResultsControl = () => {
   const {
     response: { str },
+    correctInfo,
   } = useSpeller()
   const router = useRouter()
   const { copyText } = useClipboard()
@@ -22,6 +25,15 @@ const ResultsControl = () => {
     toast({
       description: '복사 완료!\n원하는 곳에 붙여넣어 보세요.',
     })
+
+    const unfixedErrors = Object.values(correctInfo)
+      .filter(item => !item?.crtStr)
+      .map(item => ({
+        errorWord: item.orgStr,
+        replaceWord: item.candWord.split('|')[0],
+        sentence: getWordsAroundIndex(str, item.start),
+      }))
+    logCopyAction(unfixedErrors)
   }
 
   return (
